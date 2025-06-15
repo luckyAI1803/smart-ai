@@ -2,9 +2,6 @@ import streamlit as st
 import requests
 from urllib.parse import quote
 from bs4 import BeautifulSoup
-
-# ---------- Zoekfuncties (zonder API's) ----------
-# Automatische installatie van beautifulsoup4 indien nodig
 import subprocess
 import sys
 
@@ -12,7 +9,12 @@ try:
     from bs4 import BeautifulSoup
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "beautifulsoup4"])
-    from bs4 import BeautifulSoup
+    # Herlaad de module na installatie
+    import importlib
+    BeautifulSoup = importlib.import_module("bs4").BeautifulSoup
+
+# ---------- Zoekfuncties (zonder API's) ----------
+# Automatische installatie van beautifulsoup4 indien nodig
 
 def search_wikipedia(query, lang='nl'):
     try:
